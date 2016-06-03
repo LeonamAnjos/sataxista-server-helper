@@ -7,6 +7,11 @@ def get_request_param
 end
 
 # CONTROLLER
+
+get '/say_hi' do
+  'Hi!'
+end
+
 post '/receive_taxi_requests' do
   data = get_request_param
 
