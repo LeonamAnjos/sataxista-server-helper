@@ -2,31 +2,13 @@ require 'sinatra'
 require 'json'
 
 set :bind, '0.0.0.0'
+
+TAXI_ID = 123
+
 # CONTROLLER
 
-get '/say_hi' do
+get '/say' do
   '<h1>Hi!</h1>'
-end
-
-post '/receive_taxi_requests' do
-  data = get_request_param
-
-  response = {}
-
-  if data['taxi_id'].nil? || data['taxi_id'].to_i <= 0
-    response['code'] = 1
-    response['message'] = 'Invalid param: "taxi_id"'
-  elsif data['enable'].nil?
-    response['code'] = 1
-    response['message'] = 'Invalid param: "enable"'
-  end
-
-  l(response.to_json)
-end
-
-post "/api" do
-  data = get_request_param
-  "Hello #{data['name']}!"
 end
 
 post "/authentication" do
@@ -39,7 +21,7 @@ post "/authentication" do
 
   if email == 'a@b.c' && password == '123456'
     response['token'] = 'TOKEN'
-    response['taxi_id'] = 123
+    response['taxi_id'] = TAXI_ID 
   else
     response['code'] = 1
     response['message'] = 'Invalid e-mail/password'
@@ -50,14 +32,10 @@ end
 
 put "/location" do
   data = get_request_param
-	response = {}
+	
+  response = {}
 
-  token = data['token'] || ''
-
-	if token != 'TOKEN'
-			response['code'] = 1
-			response['message'] = 'Authentication fail'
-  end
+  response.merge!(check_token(data))
 
   l(response.to_json)
 end
@@ -93,9 +71,9 @@ private
 
 def check_token(data)
   token = data['token'] || ''
-  taxi_id = data['taxi_id'] || ''
+  taxi_id = data['taxi_id'] || 0
 
-  if token == 'TOKEN'
+  if token == 'TOKEN' && taxi_id == TAXI_ID
     return {}
   end
 
