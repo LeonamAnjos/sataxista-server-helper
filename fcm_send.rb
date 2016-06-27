@@ -13,7 +13,7 @@ puts RestClient.post 'https://fcm.googleapis.com/fcm/send',
 				 "city": "cidade teste", 
 				 "state": "PR" }, 
 				 "passengers": 1, 
-				 "big_trunk": true, 
+				 "large_trunk": true, 
 				 "name": "Fulano", 
 				 "phone": "44 3322-6655" }  },
       "to": "e9NIieEo0UU:APA91bG-po5bQexrofuv4YDBjcUPleHkJGlecpKg05LaNI6coy5noyr2FXUPN4IBVvSxfC6BNN4rw0dY1QvM8M3kboUMeTKgVCOSUN9yDDPpL4yekn3ccjQm7zqMyzOZEKwkgrmyKGAg"
