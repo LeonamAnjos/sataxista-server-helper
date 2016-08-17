@@ -1,33 +1,33 @@
 require 'rest-client'
+require_relative 'fcm_keys'
 
 puts 'Sending taxi request to cellphone'
 
 puts RestClient.post 'https://fcm.googleapis.com/fcm/send',
-	'{
-    "data":
+	"{
+    \"data\":
 		{
-			"request":
+			\"request\":
 			{
-				"taxi_request":
+				\"taxi_request\":
 				{
-					"request_id":123,
-					"taxi_cab":
+					\"request_id\":123,
+					\"taxi_cab\":
 					{
-						"lat":-23.41324,
-						"lng":-51.9436612,
-						"driver":"Fulano de Tal",
-						"plate":"AXV2332",
-						"model":"Ferrari",
-						"cellphone":"4499643636"
+						\"lat\":-23.41324,
+						\"lng\":-51.9436612,
+						\"driver\":\"Fulano de Tal\",
+						\"plate\":\"AXV2332\",
+						\"model\":\"Ferrari\",
+						\"cellphone\":\"4499643636\"
 					}
 				}
 			}
 		 },
-		"to": "d8uNuAs2adM:APA91bFwzn64F67LBEBu9nFWzYpjLz8dDK31Qs8Y3ZVYUf-BQH-ukbsATZccsCtJ3ZDXVlLEte59GTpHG6SYZEJDZhrQLFirbTR0PbJhyP4_cmYsxhunB3uPJ_Unti3u16YUsTIbyCdt"
-
-	}',
+		\"to\": \"#{fcm_address}\"
+	}",
 	:content_type => "application/json",
-	:authorization => "key=AIzaSyBkp_qyZC6vASVR0CEVGnkWHt1xJYpQCsA"
+	:authorization => "key=#{authorization_key}"
 
 
 
