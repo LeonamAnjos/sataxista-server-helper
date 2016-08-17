@@ -4,7 +4,7 @@ require 'json'
 set :bind, '0.0.0.0'
 
 TAXI_ID = 123
-VALID_EMAIL = 'a@b.com'
+VALID_CAR_PLATE = 'AAA1111'
 VALID_PASSWORD = '123456'
 TOKEN = 'THE_TOKEN'
 
@@ -15,7 +15,7 @@ get '/say/more' do
 end
 
 get "/api/v1/active_request" do
-	l("active_request")
+  l("active_request")
 
   content_type :json
 
@@ -52,15 +52,15 @@ post "/api/v1/authentication" do
 
   response = {}
 
-  email = data['email'] || ''
+  license_plate = data['license_plate'] || ''
   password = data['password'] || ''
 
-  if email == VALID_EMAIL && password == VALID_PASSWORD
+  if license_plate == VALID_CAR_PLATE && password == VALID_PASSWORD
     response['token'] = TOKEN
     response['taxi_id'] = TAXI_ID 
   else
     response['code'] = 1
-    response['message'] = 'Invalid e-mail/password'
+    response['message'] = 'Invalid car plate/password'
   end
 
   l(response.to_json)
@@ -155,3 +155,5 @@ def l(value)
   puts "#{Time.now} ==> #{value}"
   value
 end
+
+
